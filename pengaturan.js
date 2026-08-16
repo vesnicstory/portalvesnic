@@ -8,6 +8,6 @@ const CONFIG_APP = {
     namaVendor: "Vesnicstory",
 
     // 2. Google Drive API Key (Penting agar galeri bisa memuat foto)
-    googleApiKey: "AIzaSyAZczbLeVTXl-QKqLDJFWQLCd-lW9jqqxo",
+    googleApiKey: "AIzaSyA7vpTXn9qLUn9YKhr7k9B4XGNvok-Y8Zg",
     whatsappAdmin: "6285145499935" // <-- TAMBAHKAN BARIS INI (Ganti dengan nomor WA admin)
 };
