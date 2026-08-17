@@ -11,7 +11,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <script>
-        // Cek preferensi tema lokal
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
         } else {
@@ -51,7 +50,7 @@
 </head>
 <body class="text-stone-900 dark:text-stone-100 pb-32 flex flex-col min-h-screen selection:bg-stone-300 selection:text-stone-900">
 
-    <!-- Header Elegan -->
+    <!-- Header -->
     <header class="bg-stone-900 backdrop-blur-md shadow-lg border-b-2 border-stone-800 sticky top-0 z-40 transition-colors duration-300">
         <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
             <div class="flex items-center gap-4">
@@ -78,7 +77,7 @@
 
     <main id="clientView" class="flex-grow w-full">
         
-        <!-- Sapaan Klien -->
+        <!-- Greeting Section -->
         <div id="greetingSection" class="hidden max-w-6xl w-full mx-auto px-6 pt-10">
             <div class="bg-stone-900 rounded-[2rem] p-8 md:p-10 text-white shadow-2xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-2 border-stone-800">
                 <div class="relative z-10">
@@ -99,10 +98,10 @@
         </div>
 
         <div class="max-w-6xl mx-auto px-6 py-12 w-full">
-            <!-- Akses Manual (Jika link dibuka tanpa parameter ID) -->
+            <!-- Manual Input Section -->
             <div id="inputSection" class="bg-white dark:bg-stone-900 rounded-[2rem] p-10 aesthetic-shadow border-2 border-stone-200 dark:border-stone-800 mb-8 max-w-2xl mx-auto text-center relative overflow-hidden hidden">
                 <h2 class="text-2xl font-bold mb-3 text-stone-900 dark:text-white" data-i18n="manualTitle">Akses Manual Galeri</h2>
-                <p class="text-stone-600 dark:text-stone-400 text-base mb-8 font-medium" data-i18n="manualDesc">Silakan tempel (paste) link folder Google Drive Anda di bawah ini.</p>
+                <p class="text-stone-700 dark:text-stone-300 text-base mb-8 font-medium" data-i18n="manualDesc">Silakan tempel (paste) link folder Google Drive Anda di bawah ini.</p>
                 <div class="relative">
                     <input type="text" id="driveLink" class="w-full px-5 py-4 bg-stone-50 dark:bg-stone-800 border-2 border-stone-200 dark:border-stone-700 text-stone-900 dark:text-white rounded-2xl focus:border-stone-500 font-medium outline-none transition text-base" placeholder="Link Google Drive...">
                 </div>
@@ -116,17 +115,17 @@
             <!-- Loading State -->
             <div id="loadingState" class="hidden flex-col items-center justify-center py-20">
                 <i class="fa-solid fa-circle-notch fa-spin text-5xl text-stone-900 dark:text-white mb-4"></i>
-                <p id="loadingText" class="text-stone-600 dark:text-stone-400 font-bold text-lg mt-3" data-i18n="loading">Menarik data dari Google Drive...</p>
+                <p id="loadingText" class="text-stone-700 dark:text-stone-300 font-bold text-lg mt-3" data-i18n="loading">Menarik data dari Google Drive...</p>
             </div>
 
-            <!-- Galeri Utama -->
+            <!-- Gallery Container -->
             <div id="galleryContainer" class="hidden">
                 <div id="folderNavContainer" class="hidden mb-8 bg-white dark:bg-stone-900 rounded-[2rem] p-6 border-2 border-stone-200 dark:border-stone-800 aesthetic-shadow">
                     <div class="flex items-center justify-between mb-4 border-b-2 border-stone-100 dark:border-stone-800 pb-3">
-                        <h4 class="font-bold text-stone-800 dark:text-stone-200 text-base flex items-center">
+                        <h4 class="font-bold text-stone-900 dark:text-stone-100 text-base flex items-center">
                             <i class="fa-solid fa-folder-tree mr-3 text-stone-500"></i> <span data-i18n="folderTitle">Sub-Folder Tersedia</span>
                         </h4>
-                        <button id="btnBackFolder" onclick="navigateBackFolder()" class="hidden text-sm font-extrabold bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 px-4 py-2 rounded-xl shadow-sm border border-stone-200 dark:border-stone-700 hover:bg-stone-200 transition flex items-center">
+                        <button id="btnBackFolder" onclick="navigateBackFolder()" class="hidden text-sm font-extrabold bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-200 px-4 py-2 rounded-xl shadow-sm border border-stone-200 dark:border-stone-700 hover:bg-stone-200 transition flex items-center">
                             <i class="fa-solid fa-arrow-left mr-2"></i> <span data-i18n="btnBackFolder">Kembali</span>
                         </button>
                     </div>
@@ -136,11 +135,11 @@
                 <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-8 gap-6 border-b-2 border-stone-200 dark:border-stone-800 pb-6">
                     <div>
                         <h3 class="font-extrabold text-2xl text-stone-900 dark:text-white" id="currentFolderDisplay" data-i18n="galleryTitle">Koleksi Foto</h3>
-                        <p class="text-base text-stone-600 dark:text-stone-400 font-medium mt-1" data-i18n="galleryDesc">Klik gambar untuk memilih. Gunakan pencarian untuk nomor foto tertentu.</p>
+                        <p class="text-base text-stone-700 dark:text-stone-300 font-medium mt-1" data-i18n="galleryDesc">Klik gambar untuk memilih. Gunakan pencarian untuk nomor foto tertentu.</p>
                     </div>
                     <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
                         
-                        <!-- Search Bar Klien -->
+                        <!-- Search Bar -->
                         <div class="relative w-full sm:w-56">
                             <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                                 <i class="fa-solid fa-magnifying-glass text-stone-400 text-sm"></i>
@@ -149,12 +148,12 @@
                                 class="w-full pl-10 pr-4 py-3 bg-white dark:bg-stone-900 border-2 border-stone-200 dark:border-stone-700 text-stone-900 dark:text-white rounded-xl text-sm font-medium outline-none transition focus:border-stone-600 shadow-sm">
                         </div>
 
-                        <button onclick="toggleGridSize()" class="bg-white dark:bg-stone-900 border-2 border-stone-200 dark:border-stone-700 text-stone-800 dark:text-stone-200 py-3 px-4 rounded-xl font-bold transition shadow-sm hover:bg-stone-100 dark:hover:bg-stone-800" title="Ubah Ukuran Grid">
+                        <button onclick="toggleGridSize()" class="bg-white dark:bg-stone-900 border-2 border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100 py-3 px-4 rounded-xl font-bold transition shadow-sm hover:bg-stone-100 dark:hover:bg-stone-800" title="Ubah Ukuran Grid">
                             <i class="fa-solid fa-table-cells-large"></i>
                         </button>
 
                         <div class="relative">
-                            <select id="sortDropdown" onchange="applySort(this.value)" class="bg-white dark:bg-stone-900 border-2 border-stone-200 dark:border-stone-700 text-stone-800 dark:text-stone-200 py-3 pl-4 pr-10 rounded-xl font-bold cursor-pointer shadow-sm focus:outline-none appearance-none transition">
+                            <select id="sortDropdown" onchange="applySort(this.value)" class="bg-white dark:bg-stone-900 border-2 border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100 py-3 pl-4 pr-10 rounded-xl font-bold cursor-pointer shadow-sm focus:outline-none appearance-none transition">
                                 <option value="default" data-i18n="sortDefault">Urutan Asli</option>
                                 <option value="asc">A - Z</option>
                                 <option value="desc">Z - A</option>
@@ -174,7 +173,28 @@
         </div>
     </main>
 
-    <!-- POP-UP TUTORIAL WAJIB UNTUK KLIEN -->
+    <!-- LIGHTBOX ZOOM & NOTES MODAL -->
+    <div id="lightbox" class="fixed inset-0 bg-stone-950/95 z-[60] hidden flex-col justify-center items-center opacity-0 transition-opacity duration-300 backdrop-blur-sm touch-pan-y">
+        <div class="absolute top-0 left-0 w-full p-4 flex justify-between items-center z-50 bg-gradient-to-b from-stone-950/80 to-transparent">
+            <p id="lightboxTitle" class="text-white font-medium drop-shadow-md text-sm md:text-base ml-2">Photo Name</p>
+            <button onclick="closeLightbox()" class="text-white hover:text-red-400 w-10 h-10 flex items-center justify-center text-2xl bg-stone-900/50 hover:bg-stone-800 rounded-full transition"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <button onclick="prevPhoto(event)" class="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-stone-900/50 hover:bg-stone-800 text-white rounded-full flex items-center justify-center text-xl z-50 transition hidden md:flex"><i class="fa-solid fa-chevron-left"></i></button>
+        <button onclick="nextPhoto(event)" class="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-stone-900/50 hover:bg-stone-800 text-white rounded-full flex items-center justify-center text-xl z-50 transition hidden md:flex"><i class="fa-solid fa-chevron-right"></i></button>
+        
+        <div class="w-full h-full flex items-center justify-center p-2 pb-32 md:pb-24 pointer-events-none">
+            <img id="lightboxImg" src="" class="max-w-full max-h-full object-contain rounded-md shadow-2xl transition-all duration-200 ease-in-out pointer-events-auto select-none opacity-100 transform scale-100">
+        </div>
+        
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 w-11/12 max-w-md z-50">
+            <button id="lightboxSelectBtn" onclick="toggleLightboxSelect()" class="px-6 py-3.5 bg-stone-900 hover:bg-stone-800 text-white font-extrabold rounded-xl transition flex items-center justify-center shadow-lg border border-stone-700 w-full">
+                <i class="fa-regular fa-square-check mr-2"></i> <span id="btnSelectText">Pilih Foto Ini</span>
+            </button>
+            <textarea id="lightboxNote" oninput="saveNote()" class="w-full bg-stone-900/90 text-white placeholder-stone-400 text-sm rounded-xl p-3 border border-stone-700 focus:outline-none focus:border-stone-500 hidden transition-all shadow-lg backdrop-blur-sm" rows="2" placeholder="Catatan edit (opsional), misal: hapus jerawat..."></textarea>
+        </div>
+    </div>
+
+    <!-- POP-UP TUTORIAL WAJIB -->
     <div id="tutorialModal" class="fixed inset-0 bg-stone-950/80 backdrop-blur-sm z-[100] hidden flex-col justify-center items-center opacity-0 transition-opacity duration-300 px-4">
         <div class="bg-white dark:bg-stone-900 rounded-[2rem] border-2 border-stone-200 dark:border-stone-800 max-w-md w-full p-8 shadow-2xl transform scale-95 transition-transform duration-300 relative" id="tutorialContent">
             <div class="absolute top-5 right-5">
@@ -185,24 +205,24 @@
                     <i class="fa-solid fa-lightbulb"></i>
                 </div>
                 <h3 class="text-2xl font-extrabold text-stone-900 dark:text-white">Cara Memilih Foto</h3>
-                <p class="text-stone-600 dark:text-stone-400 text-sm mt-2 font-medium">Ikuti panduan mudah ini untuk menyeleksi foto favorit Anda:</p>
+                <p class="text-stone-700 dark:text-stone-300 text-sm mt-2 font-medium">Ikuti panduan mudah ini untuk menyeleksi foto favorit Anda:</p>
             </div>
             <ul class="space-y-4 mb-8 text-left">
                 <li class="flex items-start gap-3.5">
                     <div class="bg-stone-900 dark:bg-white text-white dark:text-stone-900 w-7 h-7 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 shadow">1</div>
-                    <p class="text-sm text-stone-700 dark:text-stone-300 font-medium pt-0.5"><strong>Pilih Foto:</strong> Klik (tap) langsung pada gambar foto untuk memilihnya.</p>
+                    <p class="text-sm text-stone-800 dark:text-stone-200 font-medium pt-0.5"><strong>Pilih Foto:</strong> Klik (tap) langsung pada gambar foto untuk memilihnya.</p>
                 </li>
                 <li class="flex items-start gap-3.5">
                     <div class="bg-stone-900 dark:bg-white text-white dark:text-stone-900 w-7 h-7 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 shadow">2</div>
-                    <p class="text-sm text-stone-700 dark:text-stone-300 font-medium pt-0.5"><strong>Zoom & Catatan:</strong> Klik gambar untuk memperbesar detail & tambah instruksi edit.</p>
+                    <p class="text-sm text-stone-800 dark:text-stone-200 font-medium pt-0.5"><strong>Zoom & Catatan:</strong> Klik ikon kaca pembesar untuk memperbesar detail & tambah instruksi edit.</p>
                 </li>
                 <li class="flex items-start gap-3.5">
                     <div class="bg-stone-900 dark:bg-white text-white dark:text-stone-900 w-7 h-7 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 shadow">3</div>
-                    <p class="text-sm text-stone-700 dark:text-stone-300 font-medium pt-0.5"><strong>Tampilan & Urutan:</strong> Gunakan pencarian atau ubah urutan (Urutan Asli/Acak).</p>
+                    <p class="text-sm text-stone-800 dark:text-stone-200 font-medium pt-0.5"><strong>Tampilan & Urutan:</strong> Gunakan pencarian atau ubah urutan (Urutan Asli/Acak).</p>
                 </li>
                 <li class="flex items-start gap-3.5">
                     <div class="bg-stone-900 dark:bg-white text-white dark:text-stone-900 w-7 h-7 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 shadow">4</div>
-                    <p class="text-sm text-stone-700 dark:text-stone-300 font-medium pt-0.5"><strong>Kirim List:</strong> Jika sudah selesai, klik tombol Kirim WA di bagian bawah layar.</p>
+                    <p class="text-sm text-stone-800 dark:text-stone-200 font-medium pt-0.5"><strong>Kirim List:</strong> Jika sudah selesai, klik tombol Kirim WA di bagian bawah layar.</p>
                 </li>
             </ul>
             <button onclick="closeTutorial()" class="w-full py-4 bg-stone-900 hover:bg-stone-800 dark:bg-white dark:hover:bg-stone-200 dark:text-stone-900 text-white font-extrabold rounded-2xl transition shadow-xl text-sm uppercase tracking-wider">
@@ -211,10 +231,10 @@
         </div>
     </div>
 
-    <!-- FOOTER DENGAN LOGO NICLAAS -->
-    <footer id="clientFooter" class="text-center py-10 mt-auto border-t-2 border-stone-200 dark:border-stone-800 bg-stone-100 dark:bg-stone-900 transition-colors flex flex-col items-center justify-center gap-4">
-        <p class="text-xs font-extrabold text-stone-500 uppercase tracking-[0.3em]">&copy; <script>document.write(new Date().getFullYear())</script> Vesnicstory. All rights reserved.</p>
-        <div class="opacity-80 hover:opacity-100 transition-opacity">
+    <!-- FOOTER BERSIH & CERAH DENGAN LOGO NICLAAS -->
+    <footer id="clientFooter" class="text-center py-10 mt-auto border-t-2 border-stone-200 bg-[#F7F7F6] text-stone-900 transition-colors flex flex-col items-center justify-center gap-3">
+        <p class="text-[10px] font-extrabold text-stone-500 uppercase tracking-[0.3em]">Engineered & Developed By</p>
+        <div class="opacity-90 hover:opacity-100 transition-opacity">
             <img src="niclaas_logo_01.png" alt="Niclaas Logo" class="h-6 w-auto object-contain">
         </div>
     </footer>
@@ -223,7 +243,7 @@
     <div id="actionBar" class="fixed bottom-0 left-0 w-full bg-white/95 dark:bg-stone-900/95 backdrop-blur-md border-t-2 border-stone-200 dark:border-stone-800 shadow-2xl transform translate-y-full transition-transform duration-300 z-50">
         <div id="quotaContainer" class="hidden w-full px-6 pt-3 pb-1 max-w-6xl mx-auto border-b border-stone-200 dark:border-stone-800">
             <div class="flex justify-between items-end mb-1.5">
-                <span class="text-xs font-extrabold text-stone-600 dark:text-stone-400 uppercase tracking-wider" data-i18n="quotaFooter">Kuota Paket Anda</span>
+                <span class="text-xs font-extrabold text-stone-700 dark:text-stone-300 uppercase tracking-wider" data-i18n="quotaFooter">Kuota Paket Anda</span>
                 <span id="quotaText" class="text-sm font-extrabold text-stone-900 dark:text-white">0 / 0</span>
             </div>
             <div class="w-full bg-stone-200 dark:bg-stone-800 rounded-full h-3 overflow-hidden shadow-inner">
@@ -235,7 +255,7 @@
                 <div class="bg-stone-900 dark:bg-white text-white dark:text-stone-900 font-extrabold w-12 h-12 rounded-full flex items-center justify-center text-lg shadow-md shrink-0" id="selectedCount">0</div>
                 <div>
                     <p class="font-extrabold text-stone-900 dark:text-white text-base" data-i18n="selFooterTitle">Foto Terpilih</p>
-                    <p class="text-xs font-semibold text-stone-500" data-i18n="selFooterDesc">Kirim daftar ini ke tim kami</p>
+                    <p class="text-xs font-bold text-stone-600 dark:text-stone-400" data-i18n="selFooterDesc">Kirim daftar ini ke tim kami</p>
                 </div>
             </div>
             <div class="flex items-center gap-3">
@@ -249,7 +269,7 @@
         </div>
     </div>
 
-    <!-- SCRIPT JAVASCRIPT UTAMA -->
+    <!-- SCRIPT UTAMA -->
     <script>
         // Fitur Search Bar Klien
         function searchGallery() {
@@ -300,6 +320,9 @@
             selectedMap: new Map(), notes: {}, currentPage: 1, kuota: null, 
             viewMode: 'all', sortOrder: 'default', lang: 'id', gridMode: 2 
         };
+
+        let currentZoomIndex = 0; 
+        let currentZoomPhoto = null;
 
         const TRANSLATIONS = {
             id: {
@@ -399,6 +422,7 @@
                 }
             });
             updateViewModeText();
+            if (currentZoomPhoto) updateLightboxSelectBtn();
         }
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -500,7 +524,7 @@
                     document.getElementById('sortDropdown').value = 'random';
                     applySort('random');
 
-                    // MUNCULKAN POP-UP TUTORIAL OTOMATIS SAAT GALERI BERHASIL DIMUAT
+                    // MUNCULKAN POP-UP TUTORIAL
                     setTimeout(() => { showTutorial(false); }, 800);
                 } else {
                     alert('Folder kosong.');
@@ -603,7 +627,8 @@
             const startIndex = (appState.currentPage - 1) * ITEMS_PER_PAGE;
             const photosToShow = photosToProcess.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
-            photosToShow.forEach((photo) => {
+            photosToShow.forEach((photo, index) => {
+                const globalIndex = appState.photos.findIndex(p => p.id === photo.id);
                 const card = document.createElement('div');
                 card.className = `photo-card relative bg-stone-200 dark:bg-stone-800 rounded-2xl overflow-hidden aspect-square shadow-sm ${appState.selectedMap.has(photo.id) ? 'selected' : ''}`;
                 
@@ -617,6 +642,7 @@
                 overlay.className = "selected-overlay absolute inset-0 bg-stone-900/20 z-10 flex items-start justify-end p-2.5 pointer-events-none";
                 overlay.innerHTML = `<div class="check-badge bg-stone-900 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg"><i class="fa-solid fa-check"></i></div>`;
 
+                // Tombol Zoom dikembalikan di bawah kartu
                 const bottomArea = document.createElement('div');
                 bottomArea.className = "absolute bottom-0 left-0 right-0 bg-gradient-to-t from-stone-950/80 to-transparent p-3 pt-6 flex justify-between items-end z-20";
                 
@@ -624,7 +650,14 @@
                 nameText.className = "text-white text-xs font-bold truncate w-3/4 drop-shadow";
                 nameText.textContent = photo.name;
 
+                const zoomBtn = document.createElement('button');
+                zoomBtn.className = "text-white bg-black/40 hover:bg-stone-800 w-8 h-8 rounded-lg flex items-center justify-center shadow-lg transition-colors";
+                zoomBtn.innerHTML = '<i class="fa-solid fa-magnifying-glass-plus"></i>';
+                const targetIndex = appState.viewMode === 'selected' ? index : globalIndex;
+                zoomBtn.onclick = (e) => { e.stopPropagation(); openLightbox(targetIndex); };
+
                 bottomArea.appendChild(nameText);
+                bottomArea.appendChild(zoomBtn);
                 card.appendChild(img); card.appendChild(overlay); card.appendChild(bottomArea);
                 grid.appendChild(card);
             });
@@ -658,6 +691,85 @@
             if (appState.viewMode === 'all') updateViewModeText();
         }
 
+        // Lightbox Handler
+        function openLightbox(index) {
+            const lightbox = document.getElementById('lightbox');
+            const imgEl = document.getElementById('lightboxImg');
+            const photosToProcess = appState.viewMode === 'selected' ? Array.from(appState.selectedMap.values()) : appState.photos;
+
+            currentZoomIndex = index; 
+            currentZoomPhoto = photosToProcess[index];
+            document.getElementById('lightboxTitle').textContent = `${currentZoomPhoto.name} (${index + 1} of ${photosToProcess.length})`;
+            document.getElementById('lightboxImg').src = currentZoomPhoto.fullUrl || currentZoomPhoto.url;
+            updateLightboxSelectBtn();
+            
+            lightbox.classList.remove('hidden');
+            setTimeout(() => { lightbox.classList.replace('opacity-0', 'opacity-100'); }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.replace('opacity-100', 'opacity-0');
+            setTimeout(() => { 
+                lightbox.classList.add('hidden'); 
+                currentZoomPhoto = null; 
+                document.body.style.overflow = 'auto'; 
+                renderGallery(); 
+            }, 300);
+        }
+
+        function nextPhoto(e) { 
+            if(e) e.stopPropagation(); 
+            const photosToProcess = appState.viewMode === 'selected' ? Array.from(appState.selectedMap.values()) : appState.photos;
+            if (currentZoomIndex < photosToProcess.length - 1) openLightbox(currentZoomIndex + 1); 
+        }
+
+        function prevPhoto(e) { 
+            if(e) e.stopPropagation(); 
+            if (currentZoomIndex > 0) openLightbox(currentZoomIndex - 1); 
+        }
+
+        function toggleLightboxSelect() {
+            if (!currentZoomPhoto) return;
+            if (appState.selectedMap.has(currentZoomPhoto.id)) {
+                appState.selectedMap.delete(currentZoomPhoto.id); 
+                delete appState.notes[currentZoomPhoto.id]; 
+            } else {
+                if (appState.kuota !== null && appState.selectedMap.size >= appState.kuota) {
+                    return alert('Batas kuota tercapai!');
+                }
+                appState.selectedMap.set(currentZoomPhoto.id, currentZoomPhoto);
+            }
+            updateLightboxSelectBtn(); 
+            updateActionBar(); 
+            if (appState.viewMode === 'all') updateViewModeText();
+        }
+
+        function updateLightboxSelectBtn() {
+            const btn = document.getElementById('lightboxSelectBtn');
+            const noteArea = document.getElementById('lightboxNote');
+            const isSelected = appState.selectedMap.has(currentZoomPhoto.id);
+
+            if (isSelected) {
+                btn.innerHTML = `<i class="fa-solid fa-check mr-2"></i> Terpilih`;
+                btn.className = "px-6 py-3.5 bg-green-600 hover:bg-green-700 text-white font-extrabold rounded-xl transition flex items-center justify-center shadow-lg w-full";
+                noteArea.classList.remove('hidden'); 
+                noteArea.value = appState.notes[currentZoomPhoto.id] || '';
+            } else {
+                btn.innerHTML = `<i class="fa-regular fa-square-check mr-2"></i> Pilih Foto Ini`;
+                btn.className = "px-6 py-3.5 bg-stone-900 hover:bg-stone-800 text-white font-extrabold rounded-xl transition flex items-center justify-center shadow-lg border border-stone-700 w-full";
+                noteArea.classList.add('hidden');
+            }
+        }
+
+        function saveNote() {
+            if (!currentZoomPhoto) return;
+            const noteText = document.getElementById('lightboxNote').value.trim();
+            if (noteText) appState.notes[currentZoomPhoto.id] = noteText;
+            else delete appState.notes[currentZoomPhoto.id];
+        }
+
         function updateActionBar() {
             const count = appState.selectedMap.size;
             const bar = document.getElementById('actionBar');
@@ -676,7 +788,10 @@
             if (appState.selectedMap.size === 0) return;
             const selectedPhotos = Array.from(appState.selectedMap.values());
             let textContent = `LIST FOTO PILIHAN KLIEN\nKlien: ${appState.clientName}\nTotal: ${selectedPhotos.length}\n\n`;
-            selectedPhotos.forEach((p, idx) => { textContent += `${idx + 1}. ${p.name}\n`; });
+            selectedPhotos.forEach((p, idx) => { 
+                textContent += `${idx + 1}. ${p.name}\n`; 
+                if (appState.notes[p.id]) textContent += `   Catatan: ${appState.notes[p.id]}\n`;
+            });
             const blob = new Blob([textContent], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a'); a.href = url; a.download = `List_${appState.clientName || 'Klien'}.txt`;
@@ -687,7 +802,10 @@
             if (appState.selectedMap.size === 0) return;
             const selectedPhotos = Array.from(appState.selectedMap.values());
             let textToCopy = `*List Pilihan Klien*\nKlien: *${appState.clientName || 'Klien'}*\nTotal: ${selectedPhotos.length} Foto\n\n`;
-            selectedPhotos.forEach((p, idx) => { textToCopy += `${idx + 1}. ${p.name}\n`; });
+            selectedPhotos.forEach((p, idx) => { 
+                textToCopy += `${idx + 1}. ${p.name}\n`; 
+                if (appState.notes[p.id]) textToCopy += `   _Catatan: ${appState.notes[p.id]}_\n`;
+            });
             
             const waNumber = (typeof CONFIG_APP !== 'undefined') ? CONFIG_APP.whatsappAdmin : '';
             if (waNumber) {
