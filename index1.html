@@ -11,6 +11,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <script>
+        // Cek preferensi tema lokal
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
         } else {
@@ -23,10 +24,12 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #F7F7F6; overflow-x: hidden; transition: background-color 0.3s ease, color 0.3s ease; }
+        .dark body { background-color: #0c0a09; }
+        
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 4px; }
-        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+        .dark ::-webkit-scrollbar-thumb { background: #44403c; }
         
         .photo-card { transition: all 0.2s ease-in-out; }
         .photo-card:active { transform: scale(0.97); }
@@ -41,30 +44,32 @@
         .photo-card.selected .check-badge { animation: checkPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         
         .aesthetic-shadow { box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08); }
+        .dark .aesthetic-shadow { box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5); }
     </style>
     
     <script src="pengaturan.js"></script>
 </head>
-<body class="text-stone-900 dark:text-stone-100 bg-[#F7F7F6] dark:bg-stone-950 pb-32 flex flex-col min-h-screen selection:bg-stone-300 selection:text-stone-900">
+<body class="text-stone-900 dark:text-stone-100 pb-32 flex flex-col min-h-screen selection:bg-stone-300 selection:text-stone-900">
 
-    <header class="bg-stone-900/95 backdrop-blur-md shadow-lg border-b-2 border-stone-800 sticky top-0 z-40 transition-colors duration-300">
+    <!-- Header Elegan -->
+    <header class="bg-stone-900 backdrop-blur-md shadow-lg border-b-2 border-stone-800 sticky top-0 z-40 transition-colors duration-300">
         <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
             <div class="flex items-center gap-4">
                 <img src="Vesnicstory_Logo_White.png" alt="Vesnicstory Logo" class="h-10 md:h-12 w-auto object-contain">
                 <div class="hidden sm:block border-l-2 border-stone-700 pl-4">
-                    <h1 class="font-extrabold text-base leading-tight tracking-[0.2s] text-stone-100 uppercase" id="headerVendorName">Vesnicstory</h1>
+                    <h1 class="font-extrabold text-base leading-tight tracking-[0.2em] text-stone-100 uppercase" id="headerVendorName">Vesnicstory</h1>
                     <p class="text-xs text-stone-400 font-bold uppercase tracking-wider" data-i18n="subtitle">Client Portal</p>
                 </div>
             </div>
             
             <div class="flex items-center gap-3">
-                <button onclick="showTutorial(true)" class="flex items-center justify-center px-4 py-2 bg-stone-800 hover:bg-stone-700 text-stone-200 rounded-xl text-sm font-bold transition shadow-sm border border-stone-700">
+                <button onclick="showTutorial(true)" class="flex items-center justify-center px-4 py-2.5 bg-stone-800 hover:bg-stone-700 text-stone-200 rounded-xl text-sm font-bold transition shadow-sm border border-stone-700">
                     <i class="fa-solid fa-circle-question mr-1.5 text-stone-400"></i> <span data-i18n="btnGuide">Panduan</span>
                 </button>
-                <button onclick="toggleDarkMode()" id="darkModeBtn" class="flex items-center justify-center w-10 h-10 bg-stone-800 hover:bg-stone-700 text-stone-200 rounded-xl text-sm transition shadow-sm border border-stone-700">
+                <button onclick="toggleDarkMode()" id="darkModeBtn" class="flex items-center justify-center w-10 h-10 bg-stone-800 hover:bg-stone-700 text-stone-200 rounded-xl text-sm transition shadow-sm border border-stone-700" title="Ganti Mode">
                     <i class="fa-solid fa-moon"></i>
                 </button>
-                <button onclick="toggleLanguage()" class="flex items-center justify-center px-3 py-2 bg-stone-800 hover:bg-stone-700 text-stone-200 font-bold rounded-xl text-sm transition shadow-sm border border-stone-700">
+                <button onclick="toggleLanguage()" class="flex items-center justify-center px-3 py-2.5 bg-stone-800 hover:bg-stone-700 text-stone-200 font-bold rounded-xl text-sm transition shadow-sm border border-stone-700">
                     <i class="fa-solid fa-globe mr-1 text-stone-400"></i> <span id="langDisplay">EN</span>
                 </button>
             </div>
@@ -73,6 +78,7 @@
 
     <main id="clientView" class="flex-grow w-full">
         
+        <!-- Sapaan Klien -->
         <div id="greetingSection" class="hidden max-w-6xl w-full mx-auto px-6 pt-10">
             <div class="bg-stone-900 rounded-[2rem] p-8 md:p-10 text-white shadow-2xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-2 border-stone-800">
                 <div class="relative z-10">
@@ -93,24 +99,27 @@
         </div>
 
         <div class="max-w-6xl mx-auto px-6 py-12 w-full">
-            <div id="inputSection" class="bg-white rounded-[2rem] p-10 aesthetic-shadow border-2 border-stone-100 mb-8 max-w-2xl mx-auto text-center relative overflow-hidden hidden">
-                <h2 class="text-2xl font-bold mb-3 text-stone-900" data-i18n="manualTitle">Akses Manual Galeri</h2>
-                <p class="text-stone-600 text-base mb-8 font-medium" data-i18n="manualDesc">Silakan tempel (paste) link folder Google Drive Anda di bawah ini.</p>
+            <!-- Akses Manual (Jika link dibuka tanpa parameter ID) -->
+            <div id="inputSection" class="bg-white dark:bg-stone-900 rounded-[2rem] p-10 aesthetic-shadow border-2 border-stone-200 dark:border-stone-800 mb-8 max-w-2xl mx-auto text-center relative overflow-hidden hidden">
+                <h2 class="text-2xl font-bold mb-3 text-stone-900 dark:text-white" data-i18n="manualTitle">Akses Manual Galeri</h2>
+                <p class="text-stone-600 dark:text-stone-400 text-base mb-8 font-medium" data-i18n="manualDesc">Silakan tempel (paste) link folder Google Drive Anda di bawah ini.</p>
                 <div class="relative">
-                    <input type="text" id="driveLink" class="w-full px-5 py-4 bg-stone-50 border-2 border-stone-200 text-stone-900 rounded-2xl focus:border-stone-500 font-medium outline-none transition text-base" placeholder="Link Google Drive...">
+                    <input type="text" id="driveLink" class="w-full px-5 py-4 bg-stone-50 dark:bg-stone-800 border-2 border-stone-200 dark:border-stone-700 text-stone-900 dark:text-white rounded-2xl focus:border-stone-500 font-medium outline-none transition text-base" placeholder="Link Google Drive...">
                 </div>
                 <div class="mt-6 flex justify-center">
-                    <button onclick="loadFromDrive()" class="px-8 py-4 bg-stone-900 hover:bg-stone-800 text-white font-extrabold rounded-2xl transition shadow-xl flex items-center gap-3 text-lg uppercase tracking-wider">
+                    <button onclick="loadFromDrive()" class="px-8 py-4 bg-stone-900 hover:bg-stone-800 dark:bg-white dark:hover:bg-stone-200 dark:text-stone-900 text-white font-extrabold rounded-2xl transition shadow-xl flex items-center gap-3 text-lg uppercase tracking-wider">
                         <i class="fa-solid fa-folder-open"></i> <span data-i18n="btnOpen">Buka Galeri</span>
                     </button>
                 </div>
             </div>
 
+            <!-- Loading State -->
             <div id="loadingState" class="hidden flex-col items-center justify-center py-20">
                 <i class="fa-solid fa-circle-notch fa-spin text-5xl text-stone-900 dark:text-white mb-4"></i>
                 <p id="loadingText" class="text-stone-600 dark:text-stone-400 font-bold text-lg mt-3" data-i18n="loading">Menarik data dari Google Drive...</p>
             </div>
 
+            <!-- Galeri Utama -->
             <div id="galleryContainer" class="hidden">
                 <div id="folderNavContainer" class="hidden mb-8 bg-white dark:bg-stone-900 rounded-[2rem] p-6 border-2 border-stone-200 dark:border-stone-800 aesthetic-shadow">
                     <div class="flex items-center justify-between mb-4 border-b-2 border-stone-100 dark:border-stone-800 pb-3">
@@ -131,7 +140,7 @@
                     </div>
                     <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
                         
-                        <!-- KOLOM PENCARIAN CLIENT -->
+                        <!-- Search Bar Klien -->
                         <div class="relative w-full sm:w-56">
                             <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                                 <i class="fa-solid fa-magnifying-glass text-stone-400 text-sm"></i>
@@ -140,7 +149,7 @@
                                 class="w-full pl-10 pr-4 py-3 bg-white dark:bg-stone-900 border-2 border-stone-200 dark:border-stone-700 text-stone-900 dark:text-white rounded-xl text-sm font-medium outline-none transition focus:border-stone-600 shadow-sm">
                         </div>
 
-                        <button onclick="toggleGridSize()" class="bg-white dark:bg-stone-900 border-2 border-stone-200 dark:border-stone-700 text-stone-800 dark:text-stone-200 py-3 px-4 rounded-xl font-bold transition shadow-sm hover:bg-stone-50" title="Ubah Ukuran Grid">
+                        <button onclick="toggleGridSize()" class="bg-white dark:bg-stone-900 border-2 border-stone-200 dark:border-stone-700 text-stone-800 dark:text-stone-200 py-3 px-4 rounded-xl font-bold transition shadow-sm hover:bg-stone-100 dark:hover:bg-stone-800" title="Ubah Ukuran Grid">
                             <i class="fa-solid fa-table-cells-large"></i>
                         </button>
 
@@ -165,6 +174,43 @@
         </div>
     </main>
 
+    <!-- POP-UP TUTORIAL WAJIB UNTUK KLIEN -->
+    <div id="tutorialModal" class="fixed inset-0 bg-stone-950/80 backdrop-blur-sm z-[100] hidden flex-col justify-center items-center opacity-0 transition-opacity duration-300 px-4">
+        <div class="bg-white dark:bg-stone-900 rounded-[2rem] border-2 border-stone-200 dark:border-stone-800 max-w-md w-full p-8 shadow-2xl transform scale-95 transition-transform duration-300 relative" id="tutorialContent">
+            <div class="absolute top-5 right-5">
+                <button onclick="closeTutorial()" class="text-stone-400 hover:text-stone-800 dark:hover:text-white text-xl font-bold w-9 h-9 rounded-full bg-stone-100 dark:bg-stone-800 flex items-center justify-center transition-colors"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="text-center mb-6 mt-2">
+                <div class="w-16 h-16 bg-stone-100 dark:bg-stone-800 text-stone-900 dark:text-stone-100 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4 shadow-inner border border-stone-200 dark:border-stone-700">
+                    <i class="fa-solid fa-lightbulb"></i>
+                </div>
+                <h3 class="text-2xl font-extrabold text-stone-900 dark:text-white">Cara Memilih Foto</h3>
+                <p class="text-stone-600 dark:text-stone-400 text-sm mt-2 font-medium">Ikuti panduan mudah ini untuk menyeleksi foto favorit Anda:</p>
+            </div>
+            <ul class="space-y-4 mb-8 text-left">
+                <li class="flex items-start gap-3.5">
+                    <div class="bg-stone-900 dark:bg-white text-white dark:text-stone-900 w-7 h-7 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 shadow">1</div>
+                    <p class="text-sm text-stone-700 dark:text-stone-300 font-medium pt-0.5"><strong>Pilih Foto:</strong> Klik (tap) langsung pada gambar foto untuk memilihnya.</p>
+                </li>
+                <li class="flex items-start gap-3.5">
+                    <div class="bg-stone-900 dark:bg-white text-white dark:text-stone-900 w-7 h-7 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 shadow">2</div>
+                    <p class="text-sm text-stone-700 dark:text-stone-300 font-medium pt-0.5"><strong>Zoom & Catatan:</strong> Klik gambar untuk memperbesar detail & tambah instruksi edit.</p>
+                </li>
+                <li class="flex items-start gap-3.5">
+                    <div class="bg-stone-900 dark:bg-white text-white dark:text-stone-900 w-7 h-7 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 shadow">3</div>
+                    <p class="text-sm text-stone-700 dark:text-stone-300 font-medium pt-0.5"><strong>Tampilan & Urutan:</strong> Gunakan pencarian atau ubah urutan (Urutan Asli/Acak).</p>
+                </li>
+                <li class="flex items-start gap-3.5">
+                    <div class="bg-stone-900 dark:bg-white text-white dark:text-stone-900 w-7 h-7 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 shadow">4</div>
+                    <p class="text-sm text-stone-700 dark:text-stone-300 font-medium pt-0.5"><strong>Kirim List:</strong> Jika sudah selesai, klik tombol Kirim WA di bagian bawah layar.</p>
+                </li>
+            </ul>
+            <button onclick="closeTutorial()" class="w-full py-4 bg-stone-900 hover:bg-stone-800 dark:bg-white dark:hover:bg-stone-200 dark:text-stone-900 text-white font-extrabold rounded-2xl transition shadow-xl text-sm uppercase tracking-wider">
+                Mengerti, Mulai Memilih!
+            </button>
+        </div>
+    </div>
+
     <!-- FOOTER DENGAN LOGO NICLAAS -->
     <footer id="clientFooter" class="text-center py-10 mt-auto border-t-2 border-stone-200 dark:border-stone-800 bg-stone-100 dark:bg-stone-900 transition-colors flex flex-col items-center justify-center gap-4">
         <p class="text-xs font-extrabold text-stone-500 uppercase tracking-[0.3em]">&copy; <script>document.write(new Date().getFullYear())</script> Vesnicstory. All rights reserved.</p>
@@ -173,6 +219,7 @@
         </div>
     </footer>
 
+    <!-- ACTION BAR BAWAH -->
     <div id="actionBar" class="fixed bottom-0 left-0 w-full bg-white/95 dark:bg-stone-900/95 backdrop-blur-md border-t-2 border-stone-200 dark:border-stone-800 shadow-2xl transform translate-y-full transition-transform duration-300 z-50">
         <div id="quotaContainer" class="hidden w-full px-6 pt-3 pb-1 max-w-6xl mx-auto border-b border-stone-200 dark:border-stone-800">
             <div class="flex justify-between items-end mb-1.5">
@@ -202,9 +249,9 @@
         </div>
     </div>
 
-    <!-- SCRIPT LOGIKA UTAMA (Search Bar + Gallery Handler) -->
+    <!-- SCRIPT JAVASCRIPT UTAMA -->
     <script>
-        // FITUR SEARCH BAR CLIENT
+        // Fitur Search Bar Klien
         function searchGallery() {
             const input = document.getElementById('searchInput').value.toUpperCase();
             const cards = document.querySelectorAll('.photo-card');
@@ -216,6 +263,34 @@
                     card.style.display = "none";
                 }
             });
+        }
+
+        // Logika Tutorial Pop-up Wajib
+        let hasSeenTutorial = false;
+        function showTutorial(forceManual = false) {
+            if (hasSeenTutorial && !forceManual) return;
+            const modal = document.getElementById('tutorialModal');
+            const content = document.getElementById('tutorialContent');
+            if (!modal) return;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                modal.classList.replace('opacity-0', 'opacity-100');
+                content.classList.replace('scale-95', 'scale-100');
+            }, 10);
+            hasSeenTutorial = true;
+        }
+
+        function closeTutorial() {
+            const modal = document.getElementById('tutorialModal');
+            const content = document.getElementById('tutorialContent');
+            if (!modal) return;
+            modal.classList.replace('opacity-100', 'opacity-0');
+            content.classList.replace('scale-100', 'scale-95');
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }, 300);
         }
 
         const ITEMS_PER_PAGE = 200; 
@@ -424,6 +499,9 @@
                     renderFolders(); 
                     document.getElementById('sortDropdown').value = 'random';
                     applySort('random');
+
+                    // MUNCULKAN POP-UP TUTORIAL OTOMATIS SAAT GALERI BERHASIL DIMUAT
+                    setTimeout(() => { showTutorial(false); }, 800);
                 } else {
                     alert('Folder kosong.');
                     document.getElementById('loadingState').classList.add('hidden');
@@ -618,9 +696,6 @@
                 navigator.clipboard.writeText(textToCopy).then(() => { alert('List tersalin!'); });
             }
         }
-        
-        function showTutorial() { alert("1. Klik foto untuk memilih.\n2. Gunakan search bar untuk mencari nomor file.\n3. Tekan Kirim WA di bawah jika selesai."); }
-        function closeTutorial() {}
     </script>
 </body>
 </html>
