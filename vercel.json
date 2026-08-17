@@ -1,6 +1,6 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/:path", "destination": "/index.html?h=:path" }
+    { "source": "/:path", "destination": "/vsn_index_v1.1.html?h=:path" }
   ]
 }
