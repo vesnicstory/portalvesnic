@@ -50,7 +50,7 @@
 </head>
 <body class="text-stone-900 dark:text-stone-100 pb-32 flex flex-col min-h-screen selection:bg-stone-300 selection:text-stone-900">
 
-    <!-- Header -->
+    <!-- Header Elegan -->
     <header class="bg-stone-900 backdrop-blur-md shadow-lg border-b-2 border-stone-800 sticky top-0 z-40 transition-colors duration-300">
         <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
             <div class="flex items-center gap-4">
@@ -77,7 +77,7 @@
 
     <main id="clientView" class="flex-grow w-full">
         
-        <!-- Greeting Section -->
+        <!-- Sapaan Klien -->
         <div id="greetingSection" class="hidden max-w-6xl w-full mx-auto px-6 pt-10">
             <div class="bg-stone-900 rounded-[2rem] p-8 md:p-10 text-white shadow-2xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-2 border-stone-800">
                 <div class="relative z-10">
@@ -98,10 +98,10 @@
         </div>
 
         <div class="max-w-6xl mx-auto px-6 py-12 w-full">
-            <!-- Manual Input Section -->
+            <!-- Akses Manual -->
             <div id="inputSection" class="bg-white dark:bg-stone-900 rounded-[2rem] p-10 aesthetic-shadow border-2 border-stone-200 dark:border-stone-800 mb-8 max-w-2xl mx-auto text-center relative overflow-hidden hidden">
                 <h2 class="text-2xl font-bold mb-3 text-stone-900 dark:text-white" data-i18n="manualTitle">Akses Manual Galeri</h2>
-                <p class="text-stone-700 dark:text-stone-300 text-base mb-8 font-medium" data-i18n="manualDesc">Silakan tempel (paste) link folder Google Drive Anda di bawah ini.</p>
+                <p class="text-stone-800 dark:text-stone-200 text-base mb-8 font-semibold" data-i18n="manualDesc">Silakan tempel (paste) link folder Google Drive Anda di bawah ini.</p>
                 <div class="relative">
                     <input type="text" id="driveLink" class="w-full px-5 py-4 bg-stone-50 dark:bg-stone-800 border-2 border-stone-200 dark:border-stone-700 text-stone-900 dark:text-white rounded-2xl focus:border-stone-500 font-medium outline-none transition text-base" placeholder="Link Google Drive...">
                 </div>
@@ -115,10 +115,10 @@
             <!-- Loading State -->
             <div id="loadingState" class="hidden flex-col items-center justify-center py-20">
                 <i class="fa-solid fa-circle-notch fa-spin text-5xl text-stone-900 dark:text-white mb-4"></i>
-                <p id="loadingText" class="text-stone-700 dark:text-stone-300 font-bold text-lg mt-3" data-i18n="loading">Menarik data dari Google Drive...</p>
+                <p id="loadingText" class="text-stone-800 dark:text-stone-200 font-bold text-lg mt-3" data-i18n="loading">Menarik data dari Google Drive...</p>
             </div>
 
-            <!-- Gallery Container -->
+            <!-- Galeri Utama -->
             <div id="galleryContainer" class="hidden">
                 <div id="folderNavContainer" class="hidden mb-8 bg-white dark:bg-stone-900 rounded-[2rem] p-6 border-2 border-stone-200 dark:border-stone-800 aesthetic-shadow">
                     <div class="flex items-center justify-between mb-4 border-b-2 border-stone-100 dark:border-stone-800 pb-3">
@@ -135,7 +135,8 @@
                 <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-8 gap-6 border-b-2 border-stone-200 dark:border-stone-800 pb-6">
                     <div>
                         <h3 class="font-extrabold text-2xl text-stone-900 dark:text-white" id="currentFolderDisplay" data-i18n="galleryTitle">Koleksi Foto</h3>
-                        <p class="text-base text-stone-700 dark:text-stone-300 font-medium mt-1" data-i18n="galleryDesc">Klik gambar untuk memilih. Gunakan pencarian untuk nomor foto tertentu.</p>
+                        <!-- DIPERBAIKI: Warna teks dibuat tebal dan kontras tinggi agar jelas di light mode -->
+                        <p class="text-base text-stone-800 dark:text-stone-200 font-semibold mt-1.5" data-i18n="galleryDesc">Klik gambar untuk memilih. Gunakan pencarian untuk nomor foto tertentu.</p>
                     </div>
                     <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
                         
@@ -145,7 +146,7 @@
                                 <i class="fa-solid fa-magnifying-glass text-stone-400 text-sm"></i>
                             </div>
                             <input type="text" id="searchInput" onkeyup="searchGallery()" placeholder="Cari nomor foto..." 
-                                class="w-full pl-10 pr-4 py-3 bg-white dark:bg-stone-900 border-2 border-stone-200 dark:border-stone-700 text-stone-900 dark:text-white rounded-xl text-sm font-medium outline-none transition focus:border-stone-600 shadow-sm">
+                                class="w-full pl-10 pr-4 py-3 bg-white dark:bg-stone-900 border-2 border-stone-200 dark:border-stone-700 text-stone-900 dark:text-white rounded-xl text-sm font-semibold outline-none transition focus:border-stone-600 shadow-sm">
                         </div>
 
                         <button onclick="toggleGridSize()" class="bg-white dark:bg-stone-900 border-2 border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100 py-3 px-4 rounded-xl font-bold transition shadow-sm hover:bg-stone-100 dark:hover:bg-stone-800" title="Ubah Ukuran Grid">
@@ -160,6 +161,11 @@
                                 <option value="random" data-i18n="sortRandom">Acak (Random)</option>
                             </select>
                         </div>
+
+                        <!-- TOMBOL DEDICATED ACAK LAGI (DIPERBAIKI: Kembali muncul di kanan atas saat mode random aktif) -->
+                        <button id="btnReshuffle" onclick="applySort('random')" class="hidden bg-stone-100 dark:bg-stone-800 border-2 border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100 py-3 px-4 rounded-xl font-bold transition shadow-sm hover:bg-stone-200 dark:hover:bg-stone-700 flex items-center gap-2">
+                            <i class="fa-solid fa-dice"></i> <span data-i18n="btnReshuffle">Acak Lagi</span>
+                        </button>
 
                         <button onclick="toggleViewMode()" id="viewModeBtn" class="bg-stone-900 hover:bg-stone-800 dark:bg-white dark:hover:bg-stone-200 dark:text-stone-900 text-white py-3 px-5 rounded-xl font-extrabold transition flex items-center gap-2 shadow-md">
                             <i class="fa-solid fa-filter"></i> <span id="btnViewText">Lihat Pilihan</span> (0)
@@ -205,24 +211,24 @@
                     <i class="fa-solid fa-lightbulb"></i>
                 </div>
                 <h3 class="text-2xl font-extrabold text-stone-900 dark:text-white">Cara Memilih Foto</h3>
-                <p class="text-stone-700 dark:text-stone-300 text-sm mt-2 font-medium">Ikuti panduan mudah ini untuk menyeleksi foto favorit Anda:</p>
+                <p class="text-stone-800 dark:text-stone-200 text-sm mt-2 font-semibold">Ikuti panduan mudah ini untuk menyeleksi foto favorit Anda:</p>
             </div>
             <ul class="space-y-4 mb-8 text-left">
                 <li class="flex items-start gap-3.5">
                     <div class="bg-stone-900 dark:bg-white text-white dark:text-stone-900 w-7 h-7 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 shadow">1</div>
-                    <p class="text-sm text-stone-800 dark:text-stone-200 font-medium pt-0.5"><strong>Pilih Foto:</strong> Klik (tap) langsung pada gambar foto untuk memilihnya.</p>
+                    <p class="text-sm text-stone-900 dark:text-stone-100 font-semibold pt-0.5"><strong>Pilih Foto:</strong> Klik (tap) langsung pada gambar foto untuk memilihnya.</p>
                 </li>
                 <li class="flex items-start gap-3.5">
                     <div class="bg-stone-900 dark:bg-white text-white dark:text-stone-900 w-7 h-7 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 shadow">2</div>
-                    <p class="text-sm text-stone-800 dark:text-stone-200 font-medium pt-0.5"><strong>Zoom & Catatan:</strong> Klik ikon kaca pembesar untuk memperbesar detail & tambah instruksi edit.</p>
+                    <p class="text-sm text-stone-900 dark:text-stone-100 font-semibold pt-0.5"><strong>Zoom & Catatan:</strong> Klik ikon kaca pembesar untuk memperbesar detail & tambah instruksi edit.</p>
                 </li>
                 <li class="flex items-start gap-3.5">
                     <div class="bg-stone-900 dark:bg-white text-white dark:text-stone-900 w-7 h-7 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 shadow">3</div>
-                    <p class="text-sm text-stone-800 dark:text-stone-200 font-medium pt-0.5"><strong>Tampilan & Urutan:</strong> Gunakan pencarian atau ubah urutan (Urutan Asli/Acak).</p>
+                    <p class="text-sm text-stone-900 dark:text-stone-100 font-semibold pt-0.5"><strong>Tampilan & Urutan:</strong> Gunakan pencarian atau ubah urutan (Urutan Asli/Acak).</p>
                 </li>
                 <li class="flex items-start gap-3.5">
                     <div class="bg-stone-900 dark:bg-white text-white dark:text-stone-900 w-7 h-7 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 shadow">4</div>
-                    <p class="text-sm text-stone-800 dark:text-stone-200 font-medium pt-0.5"><strong>Kirim List:</strong> Jika sudah selesai, klik tombol Kirim WA di bagian bawah layar.</p>
+                    <p class="text-sm text-stone-900 dark:text-stone-100 font-semibold pt-0.5"><strong>Kirim List:</strong> Jika sudah selesai, klik tombol Kirim WA di bagian bawah layar.</p>
                 </li>
             </ul>
             <button onclick="closeTutorial()" class="w-full py-4 bg-stone-900 hover:bg-stone-800 dark:bg-white dark:hover:bg-stone-200 dark:text-stone-900 text-white font-extrabold rounded-2xl transition shadow-xl text-sm uppercase tracking-wider">
@@ -243,7 +249,7 @@
     <div id="actionBar" class="fixed bottom-0 left-0 w-full bg-white/95 dark:bg-stone-900/95 backdrop-blur-md border-t-2 border-stone-200 dark:border-stone-800 shadow-2xl transform translate-y-full transition-transform duration-300 z-50">
         <div id="quotaContainer" class="hidden w-full px-6 pt-3 pb-1 max-w-6xl mx-auto border-b border-stone-200 dark:border-stone-800">
             <div class="flex justify-between items-end mb-1.5">
-                <span class="text-xs font-extrabold text-stone-700 dark:text-stone-300 uppercase tracking-wider" data-i18n="quotaFooter">Kuota Paket Anda</span>
+                <span class="text-xs font-extrabold text-stone-800 dark:text-stone-200 uppercase tracking-wider" data-i18n="quotaFooter">Kuota Paket Anda</span>
                 <span id="quotaText" class="text-sm font-extrabold text-stone-900 dark:text-white">0 / 0</span>
             </div>
             <div class="w-full bg-stone-200 dark:bg-stone-800 rounded-full h-3 overflow-hidden shadow-inner">
@@ -255,11 +261,11 @@
                 <div class="bg-stone-900 dark:bg-white text-white dark:text-stone-900 font-extrabold w-12 h-12 rounded-full flex items-center justify-center text-lg shadow-md shrink-0" id="selectedCount">0</div>
                 <div>
                     <p class="font-extrabold text-stone-900 dark:text-white text-base" data-i18n="selFooterTitle">Foto Terpilih</p>
-                    <p class="text-xs font-bold text-stone-600 dark:text-stone-400" data-i18n="selFooterDesc">Kirim daftar ini ke tim kami</p>
+                    <p class="text-xs font-bold text-stone-700 dark:text-stone-300" data-i18n="selFooterDesc">Kirim daftar ini ke tim kami</p>
                 </div>
             </div>
             <div class="flex items-center gap-3">
-                <button onclick="downloadList()" class="px-5 py-3.5 bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 text-stone-800 dark:text-white font-extrabold rounded-xl transition flex items-center gap-2 border-2 border-stone-200 dark:border-stone-700 shadow-sm">
+                <button onclick="downloadList()" class="px-5 py-3.5 bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 text-stone-900 dark:text-white font-extrabold rounded-xl transition flex items-center gap-2 border-2 border-stone-200 dark:border-stone-700 shadow-sm">
                     <i class="fa-solid fa-file-arrow-down text-lg"></i> <span class="hidden md:inline" data-i18n="btnDownload">Download List</span>
                 </button>
                 <button onclick="copyToClipboard()" class="px-6 py-3.5 bg-stone-900 hover:bg-stone-800 dark:bg-white dark:hover:bg-stone-200 dark:text-stone-900 text-white font-extrabold rounded-xl transition flex items-center gap-2 shadow-xl">
@@ -568,6 +574,15 @@
 
         function applySort(order) {
             appState.sortOrder = order;
+            const btnReshuffle = document.getElementById('btnReshuffle');
+            
+            if (order === 'random') {
+                if (btnReshuffle) btnReshuffle.classList.remove('hidden');
+                document.getElementById('sortDropdown').value = 'random'; 
+            } else {
+                if (btnReshuffle) btnReshuffle.classList.add('hidden');
+            }
+
             if (order === 'default') { appState.photos = [...appState.originalPhotos]; } 
             else if (order === 'asc') { appState.photos.sort((a, b) => a.name.localeCompare(b.name, undefined, {numeric: true})); } 
             else if (order === 'desc') { appState.photos.sort((a, b) => b.name.localeCompare(a.name, undefined, {numeric: true})); } 
@@ -581,6 +596,14 @@
             }
             appState.currentPage = 1;
             renderGallery();
+
+            if (order === 'random' && btnReshuffle) {
+                const icon = btnReshuffle.querySelector('i');
+                if(icon) {
+                    icon.classList.add('fa-spin');
+                    setTimeout(() => icon.classList.remove('fa-spin'), 500);
+                }
+            }
         }
 
         function updateViewModeText() {
@@ -694,7 +717,6 @@
         // Lightbox Handler
         function openLightbox(index) {
             const lightbox = document.getElementById('lightbox');
-            const imgEl = document.getElementById('lightboxImg');
             const photosToProcess = appState.viewMode === 'selected' ? Array.from(appState.selectedMap.values()) : appState.photos;
 
             currentZoomIndex = index; 
