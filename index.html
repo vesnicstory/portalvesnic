@@ -25,6 +25,12 @@
         body { font-family: 'Inter', sans-serif; background-color: #F7F7F6; overflow-x: hidden; transition: background-color 0.3s ease, color 0.3s ease; }
         .dark body { background-color: #0c0a09; }
         
+        /* CSS Murni Khusus Judul & Deskripsi Galeri agar 100% responsif terhadap Light/Dark Mode */
+        .adaptive-title { color: #1c1917 !important; }
+        .dark .adaptive-title { color: #ffffff !important; }
+        .adaptive-desc { color: #292524 !important; }
+        .dark .adaptive-desc { color: #d6d3d1 !important; }
+
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 4px; }
@@ -134,9 +140,9 @@
 
                 <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-8 gap-6 border-b-2 border-stone-200 dark:border-stone-800 pb-6">
                     <div>
-                        <!-- DIPERBAIKI: Warna teks Title & Deskripsi kini hitam pekat di light mode, putih bersih di dark mode -->
-                        <h3 class="font-extrabold text-2xl text-stone-900 dark:text-white" id="currentFolderDisplay" data-i18n="galleryTitle">Koleksi Foto</h3>
-                        <p class="text-base text-stone-900 dark:text-stone-100 font-bold mt-1.5" data-i18n="galleryDesc">Klik gambar untuk memilih. Gunakan pencarian untuk nomor foto tertentu.</p>
+                        <!-- MENGGUNAKAN KELAS ADAPTIF CSS MURNI -->
+                        <h3 class="font-extrabold text-2xl adaptive-title" id="currentFolderDisplay" data-i18n="galleryTitle">Koleksi Foto</h3>
+                        <p class="text-base font-bold mt-1.5 adaptive-desc" data-i18n="galleryDesc">Klik gambar untuk memilih. Gunakan pencarian untuk nomor foto tertentu.</p>
                     </div>
                     <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
                         
