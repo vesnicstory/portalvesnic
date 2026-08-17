@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vesnicstory - RAW Sorter Engine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        /* Neutral / Soft Stone Background */
+        body { font-family: 'Inter', sans-serif; background-color: #F7F7F6; } 
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F7F7F6; }
+        ::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a8a29e; }
+        .log-container { font-family: 'Courier New', Courier, monospace; }
+        
+        /* Soft Elegant Shadows */
+        .aesthetic-shadow {
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+        }
+    </style>
+</head>
+<body class="text-stone-900 flex flex-col min-h-screen selection:bg-stone-300 selection:text-stone-900">
+
+    <!-- Header Vesnicstory (Dark Stone biar logo putihnya nyala) -->
+    <header class="bg-stone-900/95 backdrop-blur-md sticky top-0 z-40 border-b border-stone-800 shadow-lg">
+        <div class="max-w-5xl mx-auto px-6 py-5 flex justify-between items-center">
+            <div class="flex items-center gap-5">
+                <!-- LOGO VESNICSTORY -->
+                <img src="Vesnicstory_Logo_White.png" alt="Vesnicstory Logo" class="h-10 md:h-12 w-auto object-contain">
+                
+                <div class="hidden sm:block border-l-2 border-stone-700 pl-5">
+                    <h1 class="font-extrabold text-base text-stone-100 tracking-[0.2em] uppercase">Engine</h1>
+                    <p class="text-xs text-stone-400 font-bold uppercase tracking-widest mt-0.5">Auto RAW Sorter</p>
+                </div>
+            </div>
+            
+            <a href="generatorLink.html" target="_blank" class="px-5 py-3 bg-stone-800 hover:bg-stone-700 text-stone-100 border-2 border-stone-700 rounded-lg text-sm font-bold transition-all flex items-center gap-2 shadow-sm">
+                <i class="fa-solid fa-link"></i> <span class="hidden md:inline">Link Generator</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-6 py-12 flex-grow w-full">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <!-- Panel Kiri: Pengaturan Folder -->
+            <div class="bg-white rounded-[2rem] p-8 aesthetic-shadow border-2 border-stone-100 flex flex-col gap-6">
+                <h2 class="font-semibold text-2xl text-stone-900 border-b-2 border-stone-100 pb-4 tracking-wide"><i class="fa-regular fa-folder-open mr-3 text-stone-500"></i> Workspace Setup</h2>
+                
+                <div>
+                    <label class="block text-sm font-extrabold text-stone-700 mb-3 uppercase tracking-wider">1. Source Folder (RAW)</label>
+                    <button id="btnSource" onclick="selectSource()" class="w-full py-5 bg-stone-100 hover:bg-stone-200 text-stone-900 font-bold text-lg rounded-xl transition-all flex items-center justify-center gap-3 border-2 border-stone-200 hover:border-stone-300 shadow-sm group">
+                        <i class="fa-solid fa-download text-stone-500 group-hover:text-stone-800 transition-colors"></i> Select Original Files
+                    </button>
+                    <p id="sourcePath" class="text-sm font-bold text-green-700 mt-3 truncate hidden font-mono bg-green-50 px-4 py-2 rounded-lg border-2 border-green-200"><i class="fa-solid fa-check mr-2 text-green-600"></i> <span></span></p>
+                </div>
+
+                <div class="h-px bg-stone-200 w-full my-1"></div>
+
+                <div>
+                    <label class="block text-sm font-extrabold text-stone-700 mb-3 uppercase tracking-wider">2. Destination Folder (Output)</label>
+                    <button id="btnDest" onclick="selectDest()" class="w-full py-5 bg-stone-100 hover:bg-stone-200 text-stone-900 font-bold text-lg rounded-xl transition-all flex items-center justify-center gap-3 border-2 border-stone-200 hover:border-stone-300 shadow-sm group">
+                        <i class="fa-solid fa-upload text-stone-500 group-hover:text-stone-800 transition-colors"></i> Select Target Folder
+                    </button>
+                    <p id="destPath" class="text-sm font-bold text-green-700 mt-3 truncate hidden font-mono bg-green-50 px-4 py-2 rounded-lg border-2 border-green-200"><i class="fa-solid fa-check mr-2 text-green-600"></i> <span></span></p>
+                </div>
+            </div>
+
+            <!-- Panel Kanan: Input List -->
+            <div class="bg-white rounded-[2rem] p-8 aesthetic-shadow border-2 border-stone-100 flex flex-col">
+                <h2 class="font-semibold text-2xl text-stone-900 border-b-2 border-stone-100 pb-4 mb-6 tracking-wide"><i class="fa-regular fa-clipboard mr-3 text-stone-500"></i> Client Selection Data</h2>
+                <textarea id="fileList" class="w-full flex-grow bg-stone-100 border-2 border-stone-200 rounded-xl p-6 text-base font-medium text-stone-900 focus:border-stone-500 focus:bg-white outline-none transition-all resize-none font-mono placeholder-stone-500 shadow-inner" placeholder="Paste the exact WhatsApp list here..."></textarea>
+            </div>
+        </div>
+
+        <button id="processBtn" onclick="processFiles()" class="w-full py-6 bg-stone-900 hover:bg-stone-800 text-white font-extrabold rounded-2xl transition-all flex items-center justify-center gap-3 shadow-xl mb-10 text-xl uppercase tracking-widest">
+            <i class="fa-solid fa-bolt text-2xl"></i> Execute Sorting
+        </button>
+
+        <!-- Panel Log / Terminal -->
+        <div class="bg-stone-900 rounded-[2rem] p-8 aesthetic-shadow overflow-hidden flex flex-col h-80 border-4 border-stone-800 relative">
+            <div class="flex justify-between items-center mb-5 border-b-2 border-stone-700 pb-4">
+                <h3 class="text-stone-300 font-bold text-sm tracking-[0.2em] uppercase"><i class="fa-solid fa-terminal mr-2 text-stone-500"></i> System Log</h3>
+                <span id="progressText" class="text-stone-50 font-bold font-mono text-sm bg-stone-700 px-5 py-2 rounded-lg border-2 border-stone-600 tracking-wider">0 / 0 COPIED</span>
+            </div>
+            <div id="logOutput" class="log-container overflow-y-auto flex-grow text-sm leading-relaxed space-y-2 pr-4">
+                <div class="text-stone-400 font-medium">>> Engine ready. Awaiting operational data...</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer dengan Logo Niclaas -->
+    <footer class="mt-auto py-10 flex flex-col items-center justify-center gap-5 border-t-2 border-stone-200 bg-stone-100/80">
+        <p class="text-xs text-stone-500 uppercase tracking-[0.3em] font-bold">Engineered & Developed By</p>
+        
+        <!-- LOGO NICLAAS -->
+        <div class="opacity-80 hover:opacity-100 transition-opacity">
+            <img src="niclaas_logo_01.png" alt="Niclaas Logo" class="h-7 w-auto object-contain">
+        </div>
+    </footer>
+
+    <!-- LOGIKA JAVASCRIPT -->
+    <script>
+        let sourceHandle = null; let destHandle = null;
+
+        async function selectSource() {
+            try {
+                sourceHandle = await window.showDirectoryPicker();
+                const pathEl = document.getElementById('sourcePath');
+                pathEl.classList.remove('hidden'); pathEl.querySelector('span').innerText = sourceHandle.name;
+                document.getElementById('btnSource').classList.replace('border-stone-200', 'border-green-400');
+                document.getElementById('btnSource').classList.replace('bg-stone-100', 'bg-green-50');
+            } catch (err) { console.log("Batal.", err); }
+        }
+
+        async function selectDest() {
+            try {
+                destHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
+                const pathEl = document.getElementById('destPath');
+                pathEl.classList.remove('hidden'); pathEl.querySelector('span').innerText = destHandle.name;
+                document.getElementById('btnDest').classList.replace('border-stone-200', 'border-green-400');
+                document.getElementById('btnDest').classList.replace('bg-stone-100', 'bg-green-50');
+            } catch (err) { console.log("Batal.", err); }
+        }
+
+        function clearLog() { document.getElementById('logOutput').innerHTML = ''; }
+
+        function addLog(message, type = "info") {
+            const logBox = document.getElementById('logOutput');
+            const div = document.createElement('div');
+            
+            if (type === "error") { div.className = "text-red-400 font-bold"; div.innerHTML = `<i class="fa-solid fa-xmark mr-2"></i> ${message}`; } 
+            else if (type === "success") { div.className = "text-green-400 font-bold"; div.innerHTML = `<i class="fa-solid fa-check mr-2"></i> ${message}`; } 
+            else if (type === "warning") { div.className = "text-yellow-400 font-bold"; div.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-2"></i> ${message}`; } 
+            else { div.className = "text-stone-200 font-medium"; div.innerHTML = `<span class="text-stone-500 mr-2">></span> ${message}`; }
+            
+            logBox.appendChild(div); logBox.scrollTop = logBox.scrollHeight;
+        }
+
+        function getBaseName(filename) {
+            let name = filename.trim().toUpperCase();
+            const dotIndex = name.lastIndexOf('.');
+            if (dotIndex !== -1) { return name.substring(0, dotIndex).trim(); }
+            return name.trim();
+        }
+
+        function parseClientList(rawText) {
+            let list = [];
+            const lines = rawText.split('\n');
+            for (let line of lines) {
+                line = line.trim();
+                if (!line || line.startsWith('=') || line.toUpperCase().includes('LAYANAN') || line.toUpperCase().includes('KLIEN') || line.toUpperCase().includes('TOTAL') || line.toUpperCase().includes('CATATAN') || line.toUpperCase().includes('DICETAK')) continue;
+                let cleanName = line.replace(/^\d+\.\s*/, '').trim();
+                const dotIndex = cleanName.lastIndexOf('.');
+                if (dotIndex !== -1) { cleanName = cleanName.substring(0, dotIndex); }
+                cleanName = cleanName.trim().toUpperCase();
+                if (cleanName) { list.push(cleanName); }
+            }
+            return [...new Set(list)]; 
+        }
+
+        async function searchFilesInDirectory(dirHandle, notFoundList, copiedCountRef, totalTarget) {
+            for await (const entry of dirHandle.values()) {
+                if (entry.kind === 'file') {
+                    const fileBaseName = getBaseName(entry.name);
+                    const listIndex = notFoundList.findIndex(t => t === fileBaseName);
+                    
+                    if (listIndex !== -1) {
+                        addLog(`Copied: ${entry.name}`, "success");
+                        const file = await entry.getFile();
+                        const newFileHandle = await destHandle.getFileHandle(entry.name, { create: true });
+                        const writable = await newFileHandle.createWritable();
+                        await writable.write(file); await writable.close();
+                        
+                        copiedCountRef.count++;
+                        document.getElementById('progressText').innerText = `${copiedCountRef.count} / ${totalTarget} COPIED`;
+                        notFoundList.splice(listIndex, 1);
+                    }
+                } else if (entry.kind === 'directory') {
+                    await searchFilesInDirectory(entry, notFoundList, copiedCountRef, totalTarget);
+                }
+                if (notFoundList.length === 0) return;
+            }
+        }
+
+        async function processFiles() {
+            if (!sourceHandle || !destHandle) { alert("Harap pilih Source dan Destination folder!"); return; }
+            const rawListText = document.getElementById('fileList').value;
+            const targetList = parseClientList(rawListText);
+            if (targetList.length === 0) { alert("Format list kosong atau salah!"); return; }
+
+            const btn = document.getElementById('processBtn');
+            btn.disabled = true; btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin mr-3"></i> PROCESSING DATA...`;
+            btn.classList.replace('bg-stone-900', 'bg-stone-400'); btn.classList.replace('text-white', 'text-stone-700');
+            
+            clearLog(); addLog(`Scanning workspace for ${targetList.length} unique assets...`);
+            let copiedCountRef = { count: 0 }; let notFoundList = [...targetList]; 
+
+            try {
+                await searchFilesInDirectory(sourceHandle, notFoundList, copiedCountRef, targetList.length);
+
+                addLog(`========================================`);
+                addLog(`TASK COMPLETE. ${copiedCountRef.count} files successfully secured.`, "success");
+                
+                if (notFoundList.length > 0) {
+                    addLog(`CRITICAL: ${notFoundList.length} files missing from source architecture!`, "error");
+                    
+                    const logBox = document.getElementById('logOutput');
+                    const btnMissing = document.createElement('button');
+                    btnMissing.className = "mt-5 px-6 py-3 bg-red-900 hover:bg-red-800 border-2 border-red-700 text-white rounded-xl text-sm font-bold transition-all flex items-center gap-2";
+                    btnMissing.innerHTML = `<i class="fa-solid fa-download"></i> Download Missing Assets Log`;
+                    btnMissing.onclick = () => {
+                        const blob = new Blob([`MISSING ASSETS - VESNICSTORY\n=========================\n${notFoundList.join('\n')}`], { type: 'text/plain' });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a'); a.href = url; a.download = 'Missing_Assets_Vesnicstory.txt';
+                        a.click(); URL.revokeObjectURL(url);
+                    };
+                    logBox.appendChild(btnMissing);
+                }
+
+            } catch (error) {
+                console.error(error); addLog(`System Error: ${error.message}`, "error");
+            } finally {
+                btn.disabled = false; btn.innerHTML = `<i class="fa-solid fa-bolt text-2xl"></i> Execute Sorting`;
+                btn.classList.replace('bg-stone-400', 'bg-stone-900'); btn.classList.replace('text-stone-700', 'text-white');
+            }
+        }
+    </script>
+</body>
+</html>
